@@ -45,16 +45,21 @@ public class DefaultDownloadWorker extends DownloadWorker {
         byte[] buffer = new byte[8 * 1024];
         int length;
         long start = System.currentTimeMillis();
-
-        while ((length = inputStream.read(buffer)) != -1) {
-            raf.write(buffer, 0, length);
-            offset += length;
-            saveDownloadSize(url,offset);
-            long end = System.currentTimeMillis();
-            if (end - start > 1000) {
-                sendUpdateProgress(offset,contentLength);
+        try{
+            while ((length = inputStream.read(buffer)) != -1) {
+                raf.write(buffer, 0, length);
+                offset += length;
+                long end = System.currentTimeMillis();
+                if (end - start > 1000) {
+                    start = end;
+                    sendUpdateProgress(offset,contentLength);
+                }
             }
+        }catch (Exception e){
+            //出现错误在保存记录
+            saveDownloadSize(url,offset);
         }
+
 
         urlConn.disconnect();
         raf.close();

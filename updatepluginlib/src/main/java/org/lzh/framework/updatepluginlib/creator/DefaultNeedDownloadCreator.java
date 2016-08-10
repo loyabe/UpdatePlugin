@@ -44,6 +44,7 @@ public class DefaultNeedDownloadCreator implements DownloadCreator {
             public void onUpdateProgress(long current, long total) {
                 int percent = (int) (current * 1.0f / total * 100);
                 dialog.setProgress(percent);
+
             }
 
             @Override

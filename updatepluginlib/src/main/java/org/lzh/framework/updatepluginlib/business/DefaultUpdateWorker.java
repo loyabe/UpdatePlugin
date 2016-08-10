@@ -1,5 +1,6 @@
 package org.lzh.framework.updatepluginlib.business;
 
+import org.json.JSONObject;
 import org.lzh.framework.updatepluginlib.model.CheckEntity;
 import org.lzh.framework.updatepluginlib.model.HttpMethod;
 
@@ -52,8 +53,14 @@ public class DefaultUpdateWorker extends UpdateWorker {
         urlConn.setDoOutput(true);
         urlConn.setConnectTimeout(10000);
         urlConn.setRequestMethod("POST");
-        String params = createParams(entity.getParams());
-        urlConn.getOutputStream().write(params.getBytes("utf-8"));
+        urlConn.setRequestProperty("Content-Type", "application/json");
+        urlConn.setRequestProperty("Accept", "application/json");
+        urlConn.setRequestProperty("Charset", "utf-8");
+        String params = createJsonParams(entity.getParams());
+        byte[] postData = params.getBytes("UTF-8");
+        int postDataLength = postData.length;
+        urlConn.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+        urlConn.getOutputStream().write(postData);
         return urlConn;
     }
 
@@ -75,6 +82,14 @@ public class DefaultUpdateWorker extends UpdateWorker {
         return urlConn;
     }
 
+
+    private String createJsonParams(Map<String,String> params){
+        if (params == null || params.size() == 0) {
+            return "";
+        }
+        JSONObject json = new JSONObject(params);
+        return json.toString();
+    }
     private String createParams(Map<String,String> params) {
         if (params == null || params.size() == 0) {
             return "";
