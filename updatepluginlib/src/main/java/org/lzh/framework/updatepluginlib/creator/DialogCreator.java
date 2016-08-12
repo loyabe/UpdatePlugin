@@ -31,7 +31,7 @@ public abstract class DialogCreator implements Recycleable{
      *                will be null or finished sometimes when you finish you activity before,
      * @return The update dialog instance.not yet show
      */
-    public abstract Dialog create(Update update,Activity context);
+    public abstract void create(Update update,Activity context);
 
     /**
      * invoked this method when you want to start download task

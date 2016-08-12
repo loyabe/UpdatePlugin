@@ -22,7 +22,7 @@ public abstract class InstallCreator implements Recycleable{
         this.checkCB = checkCB;
     }
 
-    public abstract Dialog create(Update update,String path,Activity activity);
+    public abstract void create(Update update,String path,Activity activity);
 
     /**
      * request to install this apk file

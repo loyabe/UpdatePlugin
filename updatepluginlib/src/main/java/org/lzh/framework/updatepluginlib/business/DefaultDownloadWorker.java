@@ -58,6 +58,7 @@ public class DefaultDownloadWorker extends DownloadWorker {
         }catch (Exception e){
             //出现错误在保存记录
             saveDownloadSize(url,offset);
+            throw new Exception(e);
         }
 
 

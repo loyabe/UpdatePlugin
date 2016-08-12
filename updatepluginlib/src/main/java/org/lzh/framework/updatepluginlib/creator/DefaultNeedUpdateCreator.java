@@ -15,7 +15,7 @@ import org.lzh.framework.updatepluginlib.util.SafeDialogOper;
  */
 public class DefaultNeedUpdateCreator extends DialogCreator {
     @Override
-    public Dialog create(final Update update, final Activity activity) {
+    public void create(final Update update, final Activity activity) {
 
         if (activity == null || activity.isFinishing()) {
             Log.e("DialogCreator--->","Activity was recycled or finished,dialog shown failed!");
@@ -44,6 +44,14 @@ public class DefaultNeedUpdateCreator extends DialogCreator {
                 }
             });
         }
-        return builder.create();
+//        builder.create().show();
+        Dialog dialog = builder.create();
+
+        if (update.isForced()) {
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
+        }
+        dialog.show();
+        SafeDialogOper.safeShowDialog(dialog);
     }
 }

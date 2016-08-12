@@ -39,6 +39,8 @@ public class Update {
      */
     private boolean ignore;
 
+    private long fileSize;
+
     public Update(String original) {
         this.original = original;
     }
@@ -115,5 +117,13 @@ public class Update {
                 ", versionName='" + versionName + '\'' +
                 ", ignore=" + ignore +
                 '}';
+    }
+
+    public long getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(long fileSize) {
+        this.fileSize = fileSize;
     }
 }

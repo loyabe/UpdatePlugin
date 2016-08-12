@@ -52,5 +52,8 @@ public class DefaultNeedDownloadCreator implements DownloadCreator {
                 SafeDialogOper.safeDismissDialog(dialog);
             }
         };
+
+
+
     }
 }
